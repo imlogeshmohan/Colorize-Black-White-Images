@@ -67,9 +67,13 @@ if uploaded_file is not None:
         )
 
     with col2:
-        if st.button('Download Image'):
-            res = ''.join(random.choices(string.ascii_lowercase +
-                             string.digits, k=8))
-            cv2.imwrite(f'colorized-{res}.jpg', colorized)
+        res = ''.join(random.choices(string.ascii_lowercase +
+                            string.digits, k=8))
 
+        st.download_button(
+                label="Download image",
+                data=cv2.imencode('.jpg', colorized)[1].tobytes(),
+                file_name=f"colorized-{res}.jpg",
+                mime="image/jpeg"
+            )
     
